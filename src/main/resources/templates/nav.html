@@ -4,13 +4,18 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>nav</title>
+		<div th:fragment="bootstrap">
+			<link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+			<link rel="stylesheet" th:href="@{/js/bootstrap.js}">
+		</div>
+		
 	</head>
 	<body>
 		<div th:fragment="nav">
-			<a th:href="@{/add}">add</a>
+			<a th:href="@{/add/6/pph/pphPsw}">add</a>
 			<a th:href="@{/select}">select</a>
-			<a th:href="@{/update}">update</a>
-			<a th:href="@{/delete}">delete</a>
+			<a th:href="@{/update/xx/1}">update</a>
+			<a th:href="@{/delete/1}">delete</a>
 		</div>
 		
 		

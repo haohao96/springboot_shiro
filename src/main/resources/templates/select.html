@@ -4,7 +4,21 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>select</title>
+		<div th:insert="~{nav::bootstrap}"></div>
 	</head>
 	<body>
+		<div th:insert="~{nav::nav}"></div>
+		<table class="table table-striped table-hover table-bordered">
+			<tr>
+				<th>Id</th>
+				<th>name</th>
+				<th>password</th>
+			</tr>
+			<tr th:each="user:${userList}">
+				<td th:text="${user.getId()}"></td>
+				<td th:text="${user.getName()}"></td>
+				<td th:text="${user.getPassword()}"></td>
+			</tr>
+		</table>
 	</body>
 </html>
