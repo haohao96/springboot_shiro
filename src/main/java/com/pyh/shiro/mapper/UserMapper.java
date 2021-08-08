@@ -13,6 +13,9 @@ public interface UserMapper {
     @Select("select * from user")
     public List<User> select();
 
+    @Select("select * from user where name=#{name}")
+    public User selectUserByName(String name);
+
     @Insert("insert into user values(#{user.id},#{user.name},#{user.password})")
     public void add(@Param("user")User user);
 

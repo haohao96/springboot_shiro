@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -16,12 +17,15 @@ public class MybatisController {
     @Autowired
     private UserMapper userMapper;
 
-    @RequestMapping("/add/{id}/{name}/{password}")
-    public String add(@PathVariable User user)
-    {
-        userMapper.add(user);
-        return "redirect:/select";
-    }
+//    @RequestMapping("/add/{id}/{name}/{password}")
+//    public String add(@PathVariable Integer id,
+//                      @PathVariable String name,
+//                      @PathVariable String password)
+//    {
+//        User user=new User(id,name,password);
+//        userMapper.add(user);
+//        return "redirect:/select";
+//    }
 
     @RequestMapping("/delete/{id}")
     public String delete(@PathVariable Integer id)
@@ -44,6 +48,13 @@ public class MybatisController {
         List<User> userList= userMapper.select();
         model.addAttribute("userList",userList);
         return "select";
+    }
+
+    @RequestMapping("/noauth")
+    @ResponseBody
+    public String noauth()
+    {
+        return "未经授权";
     }
 
 }

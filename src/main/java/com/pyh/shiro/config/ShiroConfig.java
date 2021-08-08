@@ -1,5 +1,6 @@
 package com.pyh.shiro.config;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.pyh.shiro.shiroBean.UserRealm;
 import org.apache.catalina.realm.AuthenticatedUserRealm;
 import org.apache.shiro.authc.AuthenticationException;
@@ -14,6 +15,9 @@ import org.apache.shiro.web.mgt.WebSecurityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 @Configuration
 public class ShiroConfig {
 
@@ -22,7 +26,14 @@ public class ShiroConfig {
     {
         ShiroFilterFactoryBean filterFactoryBean = new ShiroFilterFactoryBean();
         filterFactoryBean.setSecurityManager(securityManager);
+        filterFactoryBean.setUnauthorizedUrl("/noauth");
+
 //        filterFactoryBean.setSuccessUrl("/suc");
+        Map<String,String> filterMap=new LinkedHashMap<>();
+        filterMap.put("/add/6/pph/pphPsw","perms[user:add]");
+        filterMap.put("/insert","perms[user:add]");
+        filterFactoryBean.setFilterChainDefinitionMap(filterMap);
+
         return filterFactoryBean;
     }
 
@@ -40,6 +51,11 @@ public class ShiroConfig {
         return new UserRealm();
     }
 
+    @Bean
+    public ShiroDialect getShiroDialect()
+    {
+        return new ShiroDialect();
+    }
 
 
 

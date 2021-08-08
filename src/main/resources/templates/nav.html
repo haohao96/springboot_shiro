@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.thymeleaf.org/thymeleaf-extras-shiro">
 
 	<head>
 		<meta charset="UTF-8">
@@ -11,13 +12,17 @@
 		
 	</head>
 	<body>
-		<div th:fragment="nav">
-			<a th:href="@{/add/6/pph/pphPsw}">add</a>
+		<div th:fragment="nav" align="center" >
+			<div shiro:hasPermission="user:add">
+				<a th:href="@{/add/6/pph/pphPsw}">add</a>
+			</div>
+			
+			<a th:href="@{/insert}">insert</a>
 			<a th:href="@{/select}">select</a>
-			<a th:href="@{/update/xx/1}">update</a>
-			<a th:href="@{/delete/1}">delete</a>
+			<a th:href="@{/update/xx/6}">update</a>
+			<a th:href="@{/delete/6}">delete</a>
 		</div>
-		
+		<br><br><br>
 		
 	</body>
 </html>
