@@ -13,14 +13,21 @@
 	</head>
 	<body>
 		<div th:fragment="nav" align="center" >
+			<div th:if="${session.loginuser==null}">
+				<a th:href="@{/login}">login</a>
+			</div>
+			<div>
+				<a th:href="@{/logout}">logout</a>
+			</div>
 			<div shiro:hasPermission="user:add">
 				<a th:href="@{/add/6/pph/pphPsw}">add</a>
 			</div>
-			
+			<div shiro:hasPermission="user:delete">
+				<a th:href="@{/delete/6}">delete</a>
+			</div>
 			<a th:href="@{/insert}">insert</a>
 			<a th:href="@{/select}">select</a>
 			<a th:href="@{/update/xx/6}">update</a>
-			<a th:href="@{/delete/6}">delete</a>
 		</div>
 		<br><br><br>
 		
