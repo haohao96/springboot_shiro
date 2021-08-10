@@ -2,6 +2,7 @@ package com.pyh.shiro.controller;
 
 import com.pyh.shiro.mapper.UserMapper;
 import com.pyh.shiro.pojo.User;
+import com.pyh.shiro.service.AsyncService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,15 +18,19 @@ public class MybatisController {
     @Autowired
     private UserMapper userMapper;
 
-//    @RequestMapping("/add/{id}/{name}/{password}")
-//    public String add(@PathVariable Integer id,
-//                      @PathVariable String name,
-//                      @PathVariable String password)
-//    {
-//        User user=new User(id,name,password);
-//        userMapper.add(user);
-//        return "redirect:/select";
-//    }
+    @Autowired
+    private AsyncService asyncService;
+
+    @RequestMapping("/add/{id}/{name}/{password}/{perms}")
+    public String add(@PathVariable Integer id,
+                      @PathVariable String name,
+                      @PathVariable String password,
+                      @PathVariable String perms)
+    {
+        User user=new User(id,name,password,perms);
+        userMapper.add(user);
+        return "redirect:/select";
+    }
 
     @RequestMapping("/delete/{id}")
     public String delete(@PathVariable Integer id)
@@ -45,6 +50,7 @@ public class MybatisController {
     @RequestMapping("/select")
     public String select(Model model)
     {
+        asyncService.delay();
         List<User> userList= userMapper.select();
         model.addAttribute("userList",userList);
         return "select";

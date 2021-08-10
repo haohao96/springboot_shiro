@@ -9,3 +9,6 @@ spring:
       type: com.alibaba.druid.pool.DruidDataSource
       initial-size: 23
       max-active: 23
+
+  profiles:
+    active: pro

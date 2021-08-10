@@ -3,9 +3,13 @@ package com.pyh.shiro.config;
 import com.alibaba.druid.sql.visitor.functions.Concat;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
+import org.springframework.core.env.Profiles;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
@@ -19,9 +23,20 @@ import java.util.ArrayList;
 public class Swagger2Config {
 
     @Bean
-    public Docket docket()
+    public Docket docket(Environment environment)
     {
-        return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo());
+        Profiles profiles=Profiles.of("pro");
+        Boolean flag=environment.acceptsProfiles(profiles);
+
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo())
+                .enable(flag)
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.pyh.shiro.controller"))
+//                .paths(PathSelectors.ant("/select"))
+                .paths(PathSelectors.ant("/add/**"))
+                .build()
+                ;
     }
 
     private ApiInfo apiInfo()
